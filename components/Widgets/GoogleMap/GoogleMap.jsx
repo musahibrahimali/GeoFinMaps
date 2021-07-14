@@ -1,4 +1,4 @@
-import { MapWrapper } from "../exports";
+import { MapWrapper } from "../../exports";
 const mapApiKey = "AIzaSyBxez--w-bonusq592_-nLeqakIAXje2BU";
 
 const GoogleMap = () => {

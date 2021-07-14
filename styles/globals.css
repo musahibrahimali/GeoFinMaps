@@ -1,3 +1,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom__divider{
+  @apply border-b border-solid border-gray-200 dark:border-gray-600 transition-all ease-in-out duration-150;
+}
+
+.custom__shadow {
+  @apply shadow-md transition-all ease-in-out duration-300;
+}
+
+/* navbar */
+.brand__logo{
+  @apply text-gray-800 dark:text-gray-100 text-center text-lg uppercase font-extrabold tracking-wider;
+}
+
+.main__navbar{
+  @apply max-w-screen-lg mx-auto p-4 md:p-0 flex flex-row items-center justify-between;
+}
+
+.nav__list{
+  @apply flex flex-row items-center justify-between h-full text-center;
+}
+
+.navlist__container{
+  @apply md:flex flex-row m-0 bg-white dark:bg-gray-900 items-center justify-between hidden;
+}
+
+.dropdown__list__option{
+  @apply relative list-none text-gray-800 dark:text-gray-200 p-4 cursor-pointer font-bold capitalize hover:bg-yellow-400 hover:text-gray-100;
+}
+
+.navbar__item{
+  @apply list-none py-4 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 cursor-pointer font-bold capitalize text-lg hover:bg-yellow-400 dark:hover:bg-yellow-500 dark:hover:text-gray-100 hover:text-gray-100;
+}
+
+/* side bar */
+.sidenav__item {
+  @apply list-none text-gray-800 dark:text-gray-100 text-left h-full mx-auto p-3 cursor-pointer font-bold uppercase hover:shadow-md hover:bg-yellow-400 hover:text-white ease-in-out;
+}
+
+.sidenav__list{
+  @apply flex flex-col items-center bg-white dark:bg-gray-900 justify-center w-full h-full;
+}
+
+/* subtle details */
+.headings{
+  @apply uppercase md:text-left md:text-2xl ml-4 lg:text-4xl text-center text-blue-700 dark:text-gray-200 font-bold text-xl;
+}
+
+.footer__item{
+  @apply text-xs lg:text-sm leading-none capitalize text-gray-700 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-400;
+}
+
+.has-mask {
+		position: absolute;
+		clip: rect(10px, 150px, 130px, 10px);
+	}
+

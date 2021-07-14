@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { GoogleMap } from '../components/exports';
+import { GoogleMap, RegisterForm } from '../components/exports';
 
 const index = () => {
   return (
@@ -17,7 +17,22 @@ const index = () => {
       </Head>
       {/* main app body for home page */}
       <main className="h-full w-full">
-        <GoogleMap />
+        {/* <GoogleMap /> */}
+        <p className="text-gray-700 dark:text-gray-300 text-justify">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis totam repellendus aut. Harum adipisci, maxime doloribus molestiae eveniet suscipit obcaecati laborum, labore quas amet mollitia animi dolor dolores sapiente tenetur.
+        </p>
       </main>
     </div>
   );
