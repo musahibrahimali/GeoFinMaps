@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import { TextField } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 function InputField(props) {
-    const { name, label, error = null, onChange, value, inputIcon, required, endAdornment, ...other } = props;
+    const { name, label, error = null, onChange, value, inputIcon, required, endAdornment, multiline, rows, ...other } = props;
 
     return (
         <TextField
             required={required || false}
+            multiline={multiline || false}
+            rows={rows || 0}
             variant="outlined"
             label={label}
             name={name}

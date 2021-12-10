@@ -12,6 +12,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import * as employeeService from '../../../../Services/EmployeeService';
+import {useStateValue} from '../../../../provider/StateProvider';
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/database';
@@ -39,7 +40,7 @@ const initialValues = {
     fullName: '',
     emailAddress: '',
     password: '',
-    confpassword: '',
+    confirmPassword: '',
     phoneNumber: '',
     city: '',
     gender: 'male',
@@ -54,6 +55,7 @@ function SignUpForm() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
+    const [dispatch] = useStateValue();
     const router = useRouter();
 
     const handlePasswordVisible = (event) => {
@@ -69,17 +71,17 @@ function SignUpForm() {
     const handleSignUP = async (event) => {
         event.preventDefault();
         let userDepartment = "";
-        if (departmentId === "1") {
-            department = "Development"
+        if (values.departmentId === "1") {
+            userDepartment = "Development"
         }
-        if (departmentId === "2") {
-            department = "Marketting"
+        if (values.departmentId === "2") {
+            userDepartment = "Marketing"
         }
-        if (departmentId === "3") {
-            department = "Accounting"
+        if (values.departmentId === "3") {
+            userDepartment = "Accounting"
         }
-        if (departmentId === "4") {
-            department = "Human Resource"
+        if (values.departmentId === "4") {
+            userDepartment = "Human Resource"
         }
 
         await firebase.auth()
@@ -88,7 +90,7 @@ function SignUpForm() {
             )
             .then((auth) => {
                 if (auth) {
-                    firebase.firestore().collection('admins').add({
+                    firebase.firestore().collection('operators').add({
                         userName: values.fullName,
                         userEmail: values.emailAddress,
                         phone: values.phoneNumber,
@@ -134,8 +136,8 @@ function SignUpForm() {
         if ('password' in fieldValues) {
             temp.password = fieldValues.password.length >= 8 ? "" : "Invalid Password (password must be at least 8 characters)";
         }
-        if ('confpassword' in fieldValues) {
-            temp.confpassword = fieldValues.confpassword.length >= 8 ? "" : "Passwords do not match";
+        if ('confirmPassword' in fieldValues) {
+            temp.confirmPassword = fieldValues.confirmPassword.length >= 8 ? "" : "Passwords do not match";
         }
         if ('phoneNumber' in fieldValues) {
             temp.phoneNumber = fieldValues.phoneNumber.length > 9 ? "" : "Invalid Phone Number";
@@ -155,7 +157,9 @@ function SignUpForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            handleSignUP();
+            handleSignUP().then(results => {
+                console.log("sign up successful", results);
+            });
         }
     }
 
@@ -215,12 +219,12 @@ function SignUpForm() {
                             />
                             <InputField
                                 required
-                                label="Confirm Pasword"
-                                name="confpassword"
+                                label="Confirm Password"
+                                name="confirmPassword"
                                 type={confirmPasswordVisible ? "text" : "password"}
-                                value={values.confpassword}
+                                value={values.confirmPassword}
                                 onChange={handleInputChange}
-                                error={errors.confpassword}
+                                error={errors.confirmPassword}
                                 inputIcon={<VpnKeyIcon />}
                                 endAdornment={
                                     <InputAdornment position="end">

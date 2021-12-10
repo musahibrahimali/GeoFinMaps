@@ -15,6 +15,7 @@ import {
     FormButton,
 } from '../../FormControls/controls';
 import { LogInFormStyles } from './LogInFormStyles';
+import firebase from 'firebase';
 
 const initialValues = {
     id: 0,
@@ -84,7 +85,7 @@ function LogInForm() {
                         setErrorMessage("Invalid password");
                         break;
                     default:
-                        setErrorMessage("A network error occured");
+                        setErrorMessage("A network error occurred");
                         break;
                 }
             })
@@ -93,7 +94,9 @@ function LogInForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            handleLogIn();
+            handleLogIn().then(results => {
+                console.log("log in successful", results);
+            });
         }
     }
 

@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
 import Link from 'next/link';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { MenuItems } from '../navigation';
@@ -12,7 +12,7 @@ const SideBar = (props) => {
         <>
             <Transition.Root
                 show={openDrawer}
-                as={Fragment}>
+                as={Fragment} >
                 <Dialog
                     as="div"
                     static
@@ -50,7 +50,7 @@ const SideBar = (props) => {
                                         leaveTo="opacity-0" >
                                         <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
                                             <button className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                                                onClick={handleOpenDrawer}>
+                                                    onClick={handleOpenDrawer}>
                                                 <span className="sr-only">Close panel</span>
                                                 <XIcon className="h-6 w-6" aria-hidden="true" />
                                             </button>

@@ -16,8 +16,7 @@ function RadioControls(props) {
                 row
                 name={name}
                 value={value}
-                onChange={onChange}
-            >
+                onChange={onChange}>
                 {
                     items.map((item, index) => (
                         <FormControlLabel

@@ -3,14 +3,19 @@ export const initialState = {
     user: null,
 };
 
+export const actionTypes = {
+    SET_USER: 'SET_USER',
+    SET_THEME: 'SET_THEME',
+};
+
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'SET_THEME':
+        case actionTypes.SET_THEME:
             return {
                 ...state,
                 theme: action.theme,
             }
-        case 'SET_USER':
+        case actionTypes.SET_USER:
             return {
                 ...state,
                 user: action.user,

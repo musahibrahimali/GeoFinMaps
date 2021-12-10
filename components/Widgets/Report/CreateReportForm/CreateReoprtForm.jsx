@@ -1,17 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Grid } from '@material-ui/core';
-import * as employeeService from '../../../../Services/EmployeeService';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import PersonIcon from '@material-ui/icons/Person';
 import {
     UseForm,
     Form,
     InputField,
     RadioControls,
-    DropDown,
-    CheckBox,
     DatePicker,
     FormButton,
 } from '../../widgets';
-import { CreateReoprtFormStyles } from './CreateReoprtFormStyles';
+import { CreateReportFormStyles } from './CreateReportFormStyles';
+import firebase from 'firebase';
+import 'firebase/database';
 
 const genderItems = [
     { id: "normal", title: "Normal" },
@@ -29,8 +30,9 @@ const initialValues = {
     reportDate: new Date(),
 };
 
-function SignUpForm() {
-    const styles = CreateReoprtFormStyles();
+function CreateReportForm() {
+    const styles = CreateReportFormStyles();
+    const [media, setMedia] = useState({});
 
     const validateForm = (fieldValues = values) => {
         let temp = { ...errors };
@@ -55,10 +57,37 @@ function SignUpForm() {
         }
     }
 
+    const handleOnFileChange = (event) => {
+        event.preventDefault();
+        let selectedFile = event.target.files[0];
+        if(selectedFile.type === "image/jpeg" || selectedFile.type === 'image/jpg' || selectedFile.type === 'image/png'){
+            setMedia(selectedFile);
+            console.log(media);
+        }else{
+            alert("The selected file is not a supported image type");
+        }
+    }
+
+    const handleAddToReport = async (event) => {
+        event.preventDefault();
+        const newReport = {
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            author: values.fullName,
+            reportTitle: values.reportTitle,
+            description: values.description,
+            location: values.location,
+            reportLevel: values.level,
+            reportDate: values.reportDate,
+        }
+        await firebase.firestore().collection('reports').add(newReport);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            window.alert("working so far so good");
+            handleAddToReport().then((results) => {
+                console.log("done successfully", results);
+            });
         }
     }
 
@@ -77,49 +106,26 @@ function SignUpForm() {
         <div className="mt-8">
             <Form onSubmit={handleSubmit}>
                 <Grid container>
-                    <div className="flex flex-col md:flex-row justify-evenly items-center">
-                        <Grid item>
+                    <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-1">
+                        <Grid item className="md:col-span-2 w-full">
                             <InputField
                                 label="Full Name"
                                 name="fullName"
                                 value={values.fullName}
                                 onChange={handleInputChange}
                                 error={errors.fullName}
+                                inputIcon={<PersonIcon />}
                             />
+
                             <InputField
                                 label="Report Title"
                                 name="reportTitle"
                                 value={values.reportTitle}
                                 onChange={handleInputChange}
                                 error={errors.reportTitle}
+                                inputIcon={<PersonIcon />}
                             />
-                            <InputField
-                                label="Location"
-                                name="location"
-                                value={values.location}
-                                onChange={handleInputChange}
-                                error={errors.location}
-                            />
-                            <RadioControls
-                                name="level"
-                                label="Level"
-                                value={values.level}
-                                items={genderItems}
-                                onChange={handleInputChange}
-                            />
-                            <div className="p-4">
-                                <FormButton
-                                    type="file"
-                                    variant="outlined"
-                                    color="primary"
-                                    size="large"
-                                    text="add media"
-                                    onClick={handleResetForm}
-                                />
-                            </div>
-                        </Grid>
 
-                        <Grid item>
                             <DatePicker
                                 name="reportDate"
                                 label="Report Date"
@@ -128,8 +134,46 @@ function SignUpForm() {
                             />
 
                             <InputField
+                                label="Location"
+                                name="location"
+                                value={values.location}
+                                onChange={handleInputChange}
+                                error={errors.location}
+                                inputIcon={<LocationCityIcon />}
+                            />
+
+                            <div className="mt-6 mb-4 mr-28 ml-4 md:mr-12 md:ml-2">
+                                <label className="flex flex-col rounded-lg border-4 border-dashed border-gray-200 dark:border-gray-500 p-4 group text-center">
+                                    <div className="h-full text-center flex flex-col items-center justify-center">
+                                        <p className="pointer-none text-gray-500 dark:text-gray-600">
+                                                <span
+                                                    className="text-blue-600 cursor-pointer hover:underline">
+                                                    select a file
+                                                </span>
+                                            {" "}
+                                            from your computer
+                                        </p>
+                                    </div>
+                                    <input type="file" name="file" className='hidden' onChange={handleOnFileChange} />
+                                </label>
+                            </div>
+
+                        </Grid>
+
+                        <Grid item className="md:col-span-2 w-full">
+                            <RadioControls
+                                name="level"
+                                label="Report Level"
+                                value={values.level}
+                                items={genderItems}
+                                onChange={handleInputChange}
+                            />
+
+                            <InputField
                                 label="Description"
                                 name="description"
+                                multiline={true}
+                                rows={10}
                                 value={values.description}
                                 onChange={handleInputChange}
                                 error={errors.description}
@@ -150,10 +194,15 @@ function SignUpForm() {
                             </div>
                         </Grid>
                     </div>
+                    <div className="flex flex-col justify-between items-center">
+                        <div className="grid md:grid-cols-3 grid-rows-1">
+                            {}
+                        </div>
+                    </div>
                 </Grid>
             </Form>
         </div>
     )
 }
 
-export default SignUpForm;
+export default CreateReportForm;

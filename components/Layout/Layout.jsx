@@ -1,15 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Header, Footer, SideBar } from '../exports';
+import { useStateValue } from '../../provider/StateProvider';
+import firebase from 'firebase';
 
 const Layout = (props) => {
 
     const { children } = props;
-
+    const [{ theme }, dispatch] = useStateValue();
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
 
     const handleTheme = () => {
-        setDarkMode(!darkMode);
+        if (theme) {
+            dispatch({
+                type: "SET_THEME",
+                theme: false,
+            });
+        } else {
+            dispatch({
+                type: "SET_THEME",
+                theme: true,
+            });
+        }
     }
 
     // open the side bar (drawer logic)
@@ -35,7 +46,7 @@ const Layout = (props) => {
         }
     }
 
-    /// this function handles adding shaddow to the header upon scrolling
+    /// this function handles adding shadow to the header upon scrolling
     const handleScroll = () => {
         if (typeof window !== 'undefined') {
             const header = document.querySelector(".header");
@@ -54,10 +65,27 @@ const Layout = (props) => {
 
     // on component mount (when it is rendered in the browser)
     useEffect(() => {
+        // listen for auth changes then set the user accordingly
+        firebase.auth().onAuthStateChanged((authUser) => {
+            if (authUser) {
+                // user found
+                dispatch({
+                    type: "SET_USER",
+                    user: authUser,
+                });
+            } else {
+                // no user
+                dispatch({
+                    type: "SET_USER",
+                    user: null,
+                });
+            }
+        });
+
         // hide sidebar on screen sizes larger than mobile devices
         window.addEventListener('resize', handleHideMenu);
 
-        /// add shaddow to header on scroll
+        /// add shadow to header on scroll
         window.addEventListener('scroll', handleScroll);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,7 +93,7 @@ const Layout = (props) => {
 
 
     return (
-        <div className={darkMode ? "dark" : ""}>
+        <div className={theme ? "dark" : ""}>
             <div className="bg-white dark:bg-gray-900">
                 <div className="h-full w-screen bg-white dark:bg-gray-900 header z-50 sticky top-0">
                     <Header
@@ -75,7 +103,7 @@ const Layout = (props) => {
                     />
                 </div>
                 <div className="bg-white dark:bg-gray-900">
-                    <div className="max-w-screen-lg mx-auto">
+                    <div className="max-w-screen-xl mx-auto">
                         <div>
                             <SideBar
                                 openDrawer={openDrawer}
@@ -83,14 +111,12 @@ const Layout = (props) => {
                                 handleOpenDrawer={handleOpenDrawer}
                             />
                         </div>
-                        <div className="bg-white dark:bg-gray-900">
+                        <div className="bg-white dark:bg-gray-900 px-2">
                             {children}
                         </div>
                     </div>
                 </div>
                 <Footer
-                    darkMode={darkMode}
-                    setDarkMode={setDarkMode}
                     handleTheme={handleTheme}
                 />
             </div>

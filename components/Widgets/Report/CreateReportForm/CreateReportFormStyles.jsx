@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const CreateReoprtFormStyles = makeStyles(
+export const CreateReportFormStyles = makeStyles(
     theme => ({
         mainContainer: {
             display: "flex",

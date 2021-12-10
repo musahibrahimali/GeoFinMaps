@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import firebaseClient from '../config/firebaseClient';
 
-export const StateContext = createContext();
+export const StateContext = createContext({});
 
 /* build a provider */
 export const StateProvider = ({ reducer, initialState, children }) => {
